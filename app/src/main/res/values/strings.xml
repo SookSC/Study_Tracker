@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Study_Tracker</string>
+    <string name="button_study_start">Start Study Session</string>
+    <string name="button_study_stop">End Study Session</string>
+    <string name="button_break_start">Start Break</string>
+    <string name="button_break_stop">End Break</string>
 </resources>
