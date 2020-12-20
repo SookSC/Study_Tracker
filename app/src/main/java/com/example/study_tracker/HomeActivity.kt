@@ -6,10 +6,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         val studyChronometer = findViewById<Chronometer>(R.id.studyChronometer)
         val breakChronometer = findViewById<Chronometer>(R.id.breakChronometer)
