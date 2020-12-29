@@ -7,12 +7,24 @@ import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
 
-class HomeActivity : AppCompatActivity() {
+interface StudyCommunicator {
+    fun passDataComStudy(textStudyNotes: String)
+}
+
+interface EndSessionCommunicator {
+    fun passDataComEndSession(textStudyTime: Long)
+}
+
+class HomeActivity : AppCompatActivity(), StudyCommunicator, EndSessionCommunicator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val studyChronometer = findViewById<Chronometer>(R.id.studyChronometer)
+        val fragmentStudyBefore = StudyBeforeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragmentStudyBefore).commit()
+
+
+        /*val studyChronometer = findViewById<Chronometer>(R.id.studyChronometer)
         val breakChronometer = findViewById<Chronometer>(R.id.breakChronometer)
 
         val studyButton = findViewById<Button>(R.id.studyButton)
@@ -67,6 +79,30 @@ class HomeActivity : AppCompatActivity() {
 
             }
 
-        })
+        })*/
+    }
+
+    override fun passDataComStudy(textStudyNotes: String) {
+        val bundle = Bundle()
+        bundle.putString("textStudyNotes", textStudyNotes)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val fragmentStudyDuring = StudyDuringFragment()
+        fragmentStudyDuring.arguments = bundle
+
+        transaction.replace(R.id.fragment_container, fragmentStudyDuring).commit()
+
+    }
+
+    override fun passDataComEndSession(textStudyTime: Long) {
+        val bundle = Bundle()
+        bundle.putLong("textStudyTime", textStudyTime)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val fragmentEndSession = EndSessionFragment()
+        fragmentEndSession.arguments = bundle
+
+        transaction.replace(R.id.fragment_container, fragmentEndSession).commit()
+
     }
 }

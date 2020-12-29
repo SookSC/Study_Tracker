@@ -4,45 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BreakBeforeFragment">
+    tools:context=".StudyDuringFragment">
 
     <TextView
-        android:id="@+id/textNotes"
+        android:id="@+id/textStudyNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_notes"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextBreakNotes"
+        android:hint="@string/hint_text_enter_notes"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/studyChronometer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.379"
+        app:layout_constraintHorizontal_bias="0.393"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.717" />
+        app:layout_constraintVertical_bias="0.792" />
 
-    <EditText
-        android:id="@+id/editTextBreakNotes"
+    <Button
+        android:id="@+id/studyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
-        android:ems="10"
-        android:hint="@string/hint_text_enter_notes"
-        android:inputType="textShortMessage"
-        app:layout_constraintBottom_toTopOf="@+id/breakButton"
+        android:layout_marginBottom="472dp"
+        android:enabled="true"
+        android:text="@string/button_study_stop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/breakButton"
+    <Chronometer
+        android:id="@+id/studyChronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="312dp"
-        android:enabled="false"
-        android:text="@string/button_break_start"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="36dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/studyButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
