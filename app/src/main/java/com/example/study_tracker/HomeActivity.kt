@@ -6,12 +6,22 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
+import androidx.fragment.app.FragmentTransaction
+import kotlinx.android.synthetic.main.fragment_break_before.*
+import kotlinx.android.synthetic.main.fragment_break_during.*
 
-class HomeActivity : AppCompatActivity() {
+interface Communicator {
+    fun passDataCom(breakEditText_input: String)
+    fun openBreakBeforeFragmentCom()
+}
+
+val breakFragment1 = BreakBeforeFragment()
+
+class HomeActivity : AppCompatActivity(), Communicator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+/*
         val studyChronometer = findViewById<Chronometer>(R.id.studyChronometer)
         val breakChronometer = findViewById<Chronometer>(R.id.breakChronometer)
 
@@ -68,5 +78,28 @@ class HomeActivity : AppCompatActivity() {
             }
 
         })
+*/
+        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakFragment1).commit()
+
     }
+
+    override fun passDataCom(breakEditText_input: String) {
+        val bundle = Bundle()
+        bundle.putString("breakInputText", breakEditText_input)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val breakFragment2 = BreakDuringFragment()
+        breakFragment2.arguments = bundle
+
+        transaction.replace(R.id.content_id, breakFragment2)
+        transaction.addToBackStack(null)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        transaction.commit()
+    }
+
+    override fun openBreakBeforeFragmentCom() {
+        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakFragment1).commit()
+    }
+
+
 }
