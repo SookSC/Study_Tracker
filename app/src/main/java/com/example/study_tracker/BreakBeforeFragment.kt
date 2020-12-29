@@ -13,8 +13,6 @@ import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.fragment_break_before.*
 import kotlinx.android.synthetic.main.fragment_break_before.view.*
 
-private lateinit var viewOfLayout: View
-
 class BreakBeforeFragment : Fragment() {
     lateinit var comm: Communicator
 
