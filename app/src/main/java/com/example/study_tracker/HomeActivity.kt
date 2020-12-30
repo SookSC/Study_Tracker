@@ -6,6 +6,7 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.fragment_break_before.*
 import kotlinx.android.synthetic.main.fragment_break_during.*
@@ -97,8 +98,10 @@ class HomeActivity : AppCompatActivity(), Communicator {
         transaction.commit()
     }
 
+    // Open BreakBeforeFragment once break timer is stopped
     override fun openBreakBeforeFragmentCom() {
         supportFragmentManager.beginTransaction().replace(R.id.content_id, breakFragment1).commit()
+        Toast.makeText(this@HomeActivity, "Break session recorded!", Toast.LENGTH_SHORT).show()
     }
 
 
