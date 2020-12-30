@@ -25,6 +25,7 @@ class BreakBeforeFragment : Fragment() {
 
         v.breakButton.setOnClickListener {
             comm.passDataCom(v.editTextBreakNotes.text.toString())
+            editTextBreakNotes.setText(null)
         }
 
         return v
