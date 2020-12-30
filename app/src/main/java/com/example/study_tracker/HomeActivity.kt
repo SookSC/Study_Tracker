@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_break_during.*
 
 interface Communicator {
     fun passDataCom(breakEditText_input: String)
-    fun openBreakBeforeFragmentCom()
+    fun openBreakBeforeFragmentCom(breakDurationMin: Int, breakDurationSec: Int)
 }
 
 val breakFragment1 = BreakBeforeFragment()
@@ -99,9 +99,12 @@ class HomeActivity : AppCompatActivity(), Communicator {
     }
 
     // Open BreakBeforeFragment once break timer is stopped
-    override fun openBreakBeforeFragmentCom() {
+    override fun openBreakBeforeFragmentCom(breakDurationMin: Int, breakDurationSec: Int) {
+
         supportFragmentManager.beginTransaction().replace(R.id.content_id, breakFragment1).commit()
-        Toast.makeText(this@HomeActivity, "Break session recorded!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
+                + breakDurationMin.toString() + " minute(s) and " + breakDurationSec.toString()
+                + " second(s).", Toast.LENGTH_SHORT).show()
     }
 
 
