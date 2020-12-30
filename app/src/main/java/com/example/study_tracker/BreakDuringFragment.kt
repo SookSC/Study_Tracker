@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.Chronometer
 import android.os.SystemClock
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_break_during.*
@@ -30,7 +31,9 @@ class BreakDuringFragment : Fragment() {
         val breakChronometer = v.findViewById<Chronometer>(R.id.breakChronometer)
         val breakDuringButton = v.findViewById<Button>(R.id.breakDuringButton)
 
-        breakChronometer.setBase(SystemClock.elapsedRealtime())
+        var startTime = SystemClock.elapsedRealtime()
+
+        breakChronometer.setBase(startTime)
         breakChronometer.start()
 
         //Close this fragment on button click
@@ -38,9 +41,14 @@ class BreakDuringFragment : Fragment() {
         comm = activity as Communicator
 
         v.breakDuringButton.setOnClickListener {
-            breakChronometer.setBase(SystemClock.elapsedRealtime())
+            var endTime = SystemClock.elapsedRealtime()
+            breakChronometer.setBase(endTime)
             breakChronometer.stop()
-            comm.openBreakBeforeFragmentCom()
+
+            var elapsedTimeSec = ((endTime - startTime)/1000)%60
+            var elapsedTimeMin = ((endTime - startTime)/1000)/60
+
+            comm.openBreakBeforeFragmentCom(elapsedTimeMin.toInt(), elapsedTimeSec.toInt())
         }
 
         return v
