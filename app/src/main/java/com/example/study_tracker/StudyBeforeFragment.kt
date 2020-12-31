@@ -1,6 +1,5 @@
 package com.example.study_tracker
 
-import android.R.attr.key
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,7 @@ class StudyBeforeFragment : Fragment() {
         breakButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 var editTextStudyNotes = editTextStudyNotes.text.toString()
-                communicator.passDataComStudy(editTextStudyNotes)
+                communicator.comPassStudyNotes(editTextStudyNotes)
 
             }
         })

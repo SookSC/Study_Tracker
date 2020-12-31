@@ -14,23 +14,23 @@ private lateinit var viewOfLayout: View
 
 class EndSessionFragment : Fragment() {
 
-    var elapsedTimeMin: Int? = 0
-    var elapsedTimeSec: Int? = 0
+    var timeStudyMin: Int? = 0
+    var timeStudySec: Int? = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_end_session, container, false)
-        elapsedTimeMin = arguments?.getInt("elapsedTimeMin")
-        elapsedTimeSec = arguments?.getInt("elapsedTimeSec")
+        timeStudyMin = arguments?.getInt("timeStudyMin")
+        timeStudySec = arguments?.getInt("timeStudySec")
 
-        if (elapsedTimeSec!! < 10) {
-            view.textStudyTime.setText("$elapsedTimeMin" + ":" + "0" + "$elapsedTimeSec")
+        if (timeStudySec!! < 10) {
+            view.textStudyTime.setText("$timeStudyMin" + ":" + "0" + "$timeStudySec")
         }
 
         else {
-            view.textStudyTime.setText("$elapsedTimeMin" + ":" + "$elapsedTimeSec")
+            view.textStudyTime.setText("$timeStudyMin" + ":" + "$timeStudySec")
         }
 
         return view

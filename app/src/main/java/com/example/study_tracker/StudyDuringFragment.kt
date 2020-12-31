@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Chronometer
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_study_before.*
 import kotlinx.android.synthetic.main.fragment_study_during.view.*
 
 private lateinit var viewOfLayout: View
@@ -17,7 +16,7 @@ class StudyDuringFragment : Fragment() {
 
     private lateinit var communicator: Communicator
 
-    var textStudyNotes: String? = ""
+    var textInputStudyNotes: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -25,8 +24,8 @@ class StudyDuringFragment : Fragment() {
         communicator = activity as Communicator
 
         val view = inflater.inflate(R.layout.fragment_study_during, container, false)
-        textStudyNotes = arguments?.getString("textStudyNotes")
-        view.textStudyNotes.text = textStudyNotes
+        textInputStudyNotes = arguments?.getString("textInputStudyNotes")
+        view.textStudyNotes.text = textInputStudyNotes
 
         val studyChronometer = view.findViewById<Chronometer>(R.id.studyChronometer)
         val studyButton = view.findViewById<Button>(R.id.studyButton)
@@ -46,7 +45,7 @@ class StudyDuringFragment : Fragment() {
                 var elapsedTimeSec = ((endTime - startTime)/1000)%60
                 var elapsedTimeMin = ((endTime - startTime)/1000)/60
 
-                communicator.passDataComEndSession(elapsedTimeMin.toInt(), elapsedTimeSec.toInt())
+                communicator.comPassStudyDuration(elapsedTimeMin.toInt(), elapsedTimeSec.toInt())
             }
         })
 

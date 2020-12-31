@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.Chronometer
 
 interface Communicator {
-    fun passDataComStudy(textStudyNotes: String)
-    fun passDataComEndSession(elapsedTimeMin: Int, elapsedTimeSec: Int)
+    fun comPassStudyNotes(textInputStudyNotes: String)
+    fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int)
 }
 
 class HomeActivity : AppCompatActivity(), Communicator {
@@ -18,7 +18,7 @@ class HomeActivity : AppCompatActivity(), Communicator {
         setContentView(R.layout.activity_home)
 
         val fragmentStudyBefore = StudyBeforeFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragmentStudyBefore).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top, fragmentStudyBefore).commit()
 
 
         /*val studyChronometer = findViewById<Chronometer>(R.id.studyChronometer)
@@ -79,28 +79,28 @@ class HomeActivity : AppCompatActivity(), Communicator {
         })*/
     }
 
-    override fun passDataComStudy(textStudyNotes: String) {
+    override fun comPassStudyNotes(textInputStudyNotes: String) {
         val bundle = Bundle()
-        bundle.putString("textStudyNotes", textStudyNotes)
+        bundle.putString("textInputStudyNotes", textInputStudyNotes)
 
         val transaction = this.supportFragmentManager.beginTransaction()
         val fragmentStudyDuring = StudyDuringFragment()
         fragmentStudyDuring.arguments = bundle
 
-        transaction.replace(R.id.fragment_container, fragmentStudyDuring).commit()
+        transaction.replace(R.id.fragment_container_top, fragmentStudyDuring).commit()
 
     }
 
-    override fun passDataComEndSession(elapsedTimeMin: Int, elapsedTimeSec: Int) {
+    override fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int) {
         val bundle = Bundle()
-        bundle.putInt("elapsedTimeMin", elapsedTimeMin)
-        bundle.putInt("elapsedTimeSec", elapsedTimeSec)
+        bundle.putInt("timeStudyMin", timeStudyMin)
+        bundle.putInt("timeStudySec", timeStudySec)
 
         val transaction = this.supportFragmentManager.beginTransaction()
         val fragmentEndSession = EndSessionFragment()
         fragmentEndSession.arguments = bundle
 
-        transaction.replace(R.id.fragment_container, fragmentEndSession).commit()
+        transaction.replace(R.id.fragment_container_top, fragmentEndSession).commit()
 
     }
 }
