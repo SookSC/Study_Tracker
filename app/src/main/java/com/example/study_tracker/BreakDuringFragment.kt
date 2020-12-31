@@ -29,7 +29,6 @@ class BreakDuringFragment : Fragment() {
         v.output_textview.text = inputText
 
         val breakChronometer = v.findViewById<Chronometer>(R.id.breakChronometer)
-        val breakDuringButton = v.findViewById<Button>(R.id.breakDuringButton)
 
         var startTime = SystemClock.elapsedRealtime()
 
@@ -45,10 +44,10 @@ class BreakDuringFragment : Fragment() {
             breakChronometer.setBase(endTime)
             breakChronometer.stop()
 
-            var elapsedTimeSec = ((endTime - startTime)/1000)%60
-            var elapsedTimeMin = ((endTime - startTime)/1000)/60
+            var breakDurationMinutes = ((endTime - startTime)/1000)/60
+            var breakDurationSeconds = ((endTime - startTime)/1000)%60
 
-            comm.openBreakBeforeFragmentCom(elapsedTimeMin.toInt(), elapsedTimeSec.toInt())
+            comm.passBreakDurationCom(breakDurationMinutes.toInt(), breakDurationSeconds.toInt())
         }
 
         return v

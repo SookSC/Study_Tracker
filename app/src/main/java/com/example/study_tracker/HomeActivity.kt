@@ -12,96 +12,37 @@ import kotlinx.android.synthetic.main.fragment_break_before.*
 import kotlinx.android.synthetic.main.fragment_break_during.*
 
 interface Communicator {
-    fun passDataCom(breakEditText_input: String)
-    fun openBreakBeforeFragmentCom(breakDurationMin: Int, breakDurationSec: Int)
+    fun passBreakInputTextCom(breakEditText_input: String)
+    fun passBreakDurationCom(breakDurationMin: Int, breakDurationSec: Int)
 }
 
-val breakFragment1 = BreakBeforeFragment()
-
 class HomeActivity : AppCompatActivity(), Communicator {
+    val breakBeforeFragment = BreakBeforeFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-/*
-        val studyChronometer = findViewById<Chronometer>(R.id.studyChronometer)
-        val breakChronometer = findViewById<Chronometer>(R.id.breakChronometer)
 
-        val studyButton = findViewById<Button>(R.id.studyButton)
-        val breakButton = findViewById<Button>(R.id.breakButton)
-
-        studyButton?.setOnClickListener(object : View.OnClickListener {
-            var isRunning = false
-
-            override fun onClick(v: View?) {
-                if (!isRunning) {
-                    studyChronometer.setBase(SystemClock.elapsedRealtime())
-                    studyChronometer.start()
-                    isRunning = true
-                } else {
-                    studyChronometer.setBase(SystemClock.elapsedRealtime())
-                    studyChronometer.stop()
-                    breakChronometer.setBase(SystemClock.elapsedRealtime())
-                    breakChronometer.stop()
-                    isRunning = false
-                }
-
-                if (isRunning) {
-                    breakChronometer.isEnabled = true
-                    breakButton.isEnabled = true
-                }
-                else {
-                    breakChronometer.isEnabled = false
-                    breakButton.isEnabled = false
-                }
-
-                studyButton.setText(if (isRunning) R.string.button_study_stop else R.string.button_study_start)
-
-            }
-
-        })
-
-        breakButton?.setOnClickListener(object : View.OnClickListener {
-            var isRunning = false
-
-            override fun onClick(v: View?) {
-                if (!isRunning) {
-                    breakChronometer.setBase(SystemClock.elapsedRealtime())
-                    breakChronometer.start()
-                    isRunning = true
-                } else {
-                    breakChronometer.setBase(SystemClock.elapsedRealtime())
-                    breakChronometer.stop()
-                    isRunning = false
-                }
-
-                breakButton.setText(if (isRunning) R.string.button_break_stop else R.string.button_break_start)
-
-            }
-
-        })
-*/
-        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakFragment1).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakBeforeFragment).commit()
 
     }
 
-    override fun passDataCom(breakEditText_input: String) {
+    override fun passBreakInputTextCom(breakEditText_input: String) {
         val bundle = Bundle()
         bundle.putString("breakInputText", breakEditText_input)
 
         val transaction = this.supportFragmentManager.beginTransaction()
-        val breakFragment2 = BreakDuringFragment()
-        breakFragment2.arguments = bundle
+        val breakDuringFragment = BreakDuringFragment()
+        breakDuringFragment.arguments = bundle
 
-        transaction.replace(R.id.content_id, breakFragment2)
+        transaction.replace(R.id.content_id, breakDuringFragment)
         transaction.addToBackStack(null)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()
     }
 
-    // Open BreakBeforeFragment once break timer is stopped
-    override fun openBreakBeforeFragmentCom(breakDurationMin: Int, breakDurationSec: Int) {
-
-        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakFragment1).commit()
+    override fun passBreakDurationCom(breakDurationMin: Int, breakDurationSec: Int) {
+        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakBeforeFragment).commit()
         Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
                 + breakDurationMin.toString() + " minute(s) and " + breakDurationSec.toString()
                 + " second(s).", Toast.LENGTH_SHORT).show()
