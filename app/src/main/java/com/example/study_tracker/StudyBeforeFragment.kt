@@ -14,14 +14,14 @@ private lateinit var viewOfLayout: View
 
 class StudyBeforeFragment : Fragment() {
 
-    private lateinit var communicator: StudyCommunicator
+    private lateinit var communicator: Communicator
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_study_before, container, false)
 
-        communicator = activity as StudyCommunicator
+        communicator = activity as Communicator
 
         val breakButton = view.findViewById<Button>(R.id.studyButton)
 

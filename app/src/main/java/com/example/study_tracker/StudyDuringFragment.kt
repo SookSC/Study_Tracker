@@ -15,14 +15,14 @@ private lateinit var viewOfLayout: View
 
 class StudyDuringFragment : Fragment() {
 
-    private lateinit var communicator: EndSessionCommunicator
+    private lateinit var communicator: Communicator
 
     var textStudyNotes: String? = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        communicator = activity as EndSessionCommunicator
+        communicator = activity as Communicator
 
         val view = inflater.inflate(R.layout.fragment_study_during, container, false)
         textStudyNotes = arguments?.getString("textStudyNotes")
@@ -31,15 +31,22 @@ class StudyDuringFragment : Fragment() {
         val studyChronometer = view.findViewById<Chronometer>(R.id.studyChronometer)
         val studyButton = view.findViewById<Button>(R.id.studyButton)
 
-        studyChronometer.setBase(SystemClock.elapsedRealtime())
+        var startTime = SystemClock.elapsedRealtime()
+
+        studyChronometer.setBase(startTime)
         studyChronometer.start()
 
         studyButton?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                var elapsedMillis: Long = SystemClock.elapsedRealtime() - studyChronometer.base
-                studyChronometer.setBase(SystemClock.elapsedRealtime())
+                var endTime = SystemClock.elapsedRealtime()
+
+                studyChronometer.setBase(endTime)
                 studyChronometer.stop()
-                communicator.passDataComEndSession(elapsedMillis)
+
+                var elapsedTimeSec = ((endTime - startTime)/1000)%60
+                var elapsedTimeMin = ((endTime - startTime)/1000)/60
+
+                communicator.passDataComEndSession(elapsedTimeMin.toInt(), elapsedTimeSec.toInt())
             }
         })
 

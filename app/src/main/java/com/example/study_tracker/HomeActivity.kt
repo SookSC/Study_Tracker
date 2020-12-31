@@ -7,15 +7,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.Chronometer
 
-interface StudyCommunicator {
+interface Communicator {
     fun passDataComStudy(textStudyNotes: String)
+    fun passDataComEndSession(elapsedTimeMin: Int, elapsedTimeSec: Int)
 }
 
-interface EndSessionCommunicator {
-    fun passDataComEndSession(textStudyTime: Long)
-}
-
-class HomeActivity : AppCompatActivity(), StudyCommunicator, EndSessionCommunicator {
+class HomeActivity : AppCompatActivity(), Communicator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -94,9 +91,10 @@ class HomeActivity : AppCompatActivity(), StudyCommunicator, EndSessionCommunica
 
     }
 
-    override fun passDataComEndSession(textStudyTime: Long) {
+    override fun passDataComEndSession(elapsedTimeMin: Int, elapsedTimeSec: Int) {
         val bundle = Bundle()
-        bundle.putLong("textStudyTime", textStudyTime)
+        bundle.putInt("elapsedTimeMin", elapsedTimeMin)
+        bundle.putInt("elapsedTimeSec", elapsedTimeSec)
 
         val transaction = this.supportFragmentManager.beginTransaction()
         val fragmentEndSession = EndSessionFragment()
