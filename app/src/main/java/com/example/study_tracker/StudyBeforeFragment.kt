@@ -28,7 +28,6 @@ class StudyBeforeFragment : Fragment() {
             override fun onClick(v: View?) {
                 var editTextStudyNotes = editTextStudyNotes.text.toString()
                 communicator.comPassStudyNotes(editTextStudyNotes)
-
             }
         })
 
