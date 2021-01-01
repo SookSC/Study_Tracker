@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
-import kotlinx.android.synthetic.main.fragment_break_before.*
-import kotlinx.android.synthetic.main.fragment_break_during.*
 
 interface Communicator {
-    fun passBreakInputTextCom(breakEditText_input: String)
-    fun passBreakDurationCom(breakDurationMin: Int, breakDurationSec: Int)
+    fun comPassBreakNotes(breakEditText_input: String)
+    fun comPassBreakDuration(breakDurationMin: Int, breakDurationSec: Int)
+    fun comPassStudyNotes(textInputStudyNotes: String)
+    fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int)
 }
 
 class HomeActivity : AppCompatActivity(), Communicator {
@@ -23,28 +23,55 @@ class HomeActivity : AppCompatActivity(), Communicator {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakBeforeFragment).commit()
+        val fragmentStudyBefore = StudyBeforeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top, fragmentStudyBefore).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_bottom, breakBeforeFragment).commit()
 
     }
 
-    override fun passBreakInputTextCom(breakEditText_input: String) {
+    override fun comPassStudyNotes(textInputStudyNotes: String) {
         val bundle = Bundle()
-        bundle.putString("breakInputText", breakEditText_input)
+        bundle.putString("textInputStudyNotes", textInputStudyNotes)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val fragmentStudyDuring = StudyDuringFragment()
+        fragmentStudyDuring.arguments = bundle
+
+        transaction.replace(R.id.fragment_container_top, fragmentStudyDuring).commit()
+
+    }
+
+    override fun comPassBreakNotes(textInputBreakNotes: String) {
+        val bundle = Bundle()
+        bundle.putString("textInputBreakNotes", textInputBreakNotes)
 
         val transaction = this.supportFragmentManager.beginTransaction()
         val breakDuringFragment = BreakDuringFragment()
         breakDuringFragment.arguments = bundle
 
-        transaction.replace(R.id.content_id, breakDuringFragment)
+        transaction.replace(R.id.fragment_container_bottom, breakDuringFragment)
         transaction.addToBackStack(null)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.commit()
     }
 
-    override fun passBreakDurationCom(breakDurationMin: Int, breakDurationSec: Int) {
-        supportFragmentManager.beginTransaction().replace(R.id.content_id, breakBeforeFragment).commit()
+    override fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int) {
+        val bundle = Bundle()
+        bundle.putInt("timeStudyMin", timeStudyMin)
+        bundle.putInt("timeStudySec", timeStudySec)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val fragmentEndSession = EndSessionFragment()
+        fragmentEndSession.arguments = bundle
+
+        transaction.replace(R.id.fragment_container_top, fragmentEndSession).commit()
+
+    }
+
+    override fun comPassBreakDuration(timeBreakMin: Int, timeBreakSec: Int) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_bottom, breakBeforeFragment).commit()
         Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
-                + breakDurationMin.toString() + " minute(s) and " + breakDurationSec.toString()
+                + timeBreakMin.toString() + " minute(s) and " + timeBreakSec.toString()
                 + " second(s).", Toast.LENGTH_SHORT).show()
     }
 
