@@ -25,8 +25,6 @@ class HomeActivity : AppCompatActivity(), Communicator {
 
         val fragmentStudyBefore = StudyBeforeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top, fragmentStudyBefore).commit()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_bottom, breakBeforeFragment).commit()
-
     }
 
     override fun comPassStudyNotes(textInputStudyNotes: String) {
@@ -37,8 +35,9 @@ class HomeActivity : AppCompatActivity(), Communicator {
         val fragmentStudyDuring = StudyDuringFragment()
         fragmentStudyDuring.arguments = bundle
 
-        transaction.replace(R.id.fragment_container_top, fragmentStudyDuring).commit()
-
+        transaction.replace(R.id.fragment_container_top, fragmentStudyDuring)
+        transaction.replace(R.id.fragment_container_bottom, breakBeforeFragment)
+        transaction.commit()
     }
 
     override fun comPassBreakNotes(textInputBreakNotes: String) {
@@ -62,10 +61,10 @@ class HomeActivity : AppCompatActivity(), Communicator {
 
         val transaction = this.supportFragmentManager.beginTransaction()
         val fragmentEndSession = EndSessionFragment()
+
         fragmentEndSession.arguments = bundle
 
         transaction.replace(R.id.fragment_container_top, fragmentEndSession).commit()
-
     }
 
     override fun comPassBreakDuration(timeBreakMin: Int, timeBreakSec: Int) {

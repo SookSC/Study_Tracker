@@ -6,19 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".StudyBeforeFragment">
 
-        <TextView
-            android:id="@+id/textNotes"
+        <Button
+            android:id="@+id/studyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_notes"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextStudyNotes"
+            android:layout_marginBottom="124dp"
+            android:enabled="true"
+            android:text="@string/button_study_start"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.291"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.927" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/editTextStudyNotes"
@@ -30,18 +27,21 @@
             android:inputType="textShortMessage"
             app:layout_constraintBottom_toTopOf="@+id/studyButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/studyButton"
+        <TextView
+            android:id="@+id/textNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="136dp"
-            android:enabled="true"
-            android:text="@string/button_study_start"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/text_notes"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextStudyNotes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.216"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.764" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
