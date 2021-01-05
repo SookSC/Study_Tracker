@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_home.*
 
 interface Communicator {
-    fun comPassBreakNotes(breakEditText_input: String)
+    fun comPassBreakNotes(textInputBreakNotes: String)
     fun comPassBreakDuration(timeBreakHour: Int, timeBreakMin: Int, timeBreakSec: Int)
     fun comPassStudyNotes(textInputStudyNotes: String)
     fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int)
