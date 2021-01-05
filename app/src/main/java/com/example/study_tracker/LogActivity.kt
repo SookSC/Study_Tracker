@@ -1,8 +1,10 @@
 package com.example.study_tracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_home.*
 import java.io.File
 import java.io.FileInputStream
 
@@ -49,6 +51,22 @@ class LogActivity : AppCompatActivity() {
         else {
             Toast.makeText(this@LogActivity,"Directory creation UNSUCCESSFUL",
                 Toast.LENGTH_SHORT).show()
+        }
+
+        // Bottom navigation bar
+        var intentHome = Intent(this, HomeActivity::class.java)
+
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                // TODO: when returning to home page, if timers were running, return to that
+                //  activity instead of opening a new home activity.
+                //  Or just return to existing home activity in general instead of creating a new
+                //  one.
+                R.id.ic_home -> startActivity(intentHome)
+                //Since already on log page, clicking log icon does nothing
+                R.id.ic_log -> null
+            }
+            true
         }
 
         /*

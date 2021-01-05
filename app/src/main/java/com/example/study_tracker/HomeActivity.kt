@@ -31,13 +31,13 @@ class HomeActivity : AppCompatActivity(), Communicator {
             fragmentStudyBefore).commit()
 
         // Bottom navigation bar
-        val intent = Intent(this, LogActivity::class.java)
+        var intentLog = Intent(this, LogActivity::class.java)
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId){
-                R.id.ic_home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top,
-                    fragmentStudyBefore).commit()
-                R.id.ic_log -> startActivity(intent)
+                R.id.ic_log -> startActivity(intentLog)
+                //Since already on home page, clicking home icon does nothing
+                R.id.ic_home -> null
             }
             true
         }
