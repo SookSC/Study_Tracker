@@ -1,8 +1,11 @@
 package com.example.study_tracker
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_end_study.*
 
 
 class EndStudyActivity : AppCompatActivity() {
@@ -21,7 +24,14 @@ class EndStudyActivity : AppCompatActivity() {
         val textStudySec = findViewById<TextView>(R.id.textStudySec)
 
         textStudyHour.setText("$timeStudyHour hours")
-        textStudyMin.setText("$timeStudyHour minutes")
+        textStudyMin.setText("$timeStudyMin minutes")
         textStudySec.setText("$timeStudySec seconds")
+
+        restartButton.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                val intent = Intent(this@EndStudyActivity, HomeActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 }

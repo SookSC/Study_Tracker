@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 
 interface Communicator {
     fun comPassBreakNotes(breakEditText_input: String)
-    fun comPassBreakDuration(breakDurationMin: Int, breakDurationSec: Int)
+    fun comPassBreakDuration(breakDurationHourTotal: Int, breakDurationMinTotal: Int, breakDurationSecTotal: Int)
     fun comPassStudyNotes(textInputStudyNotes: String)
     fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int)
 }
@@ -63,11 +63,8 @@ class HomeActivity : AppCompatActivity(), Communicator {
         startActivity(intent)
     }
 
-    override fun comPassBreakDuration(timeBreakMin: Int, timeBreakSec: Int) {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_bottom, breakBeforeFragment).commit()
-        Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
-                + timeBreakMin.toString() + " minute(s) and " + timeBreakSec.toString()
-                + " second(s).", Toast.LENGTH_SHORT).show()
+    override fun comPassBreakDuration(breakDurationHourTotal: Int, breakDurationMinTotal: Int, breakDurationSecTotal: Int) {
+
     }
 
 

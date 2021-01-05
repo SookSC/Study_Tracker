@@ -30,15 +30,24 @@ class BreakDuringFragment : Fragment() {
         lateinit var comm: Communicator
         comm = activity as Communicator
 
+        var breakDurationHourTotal = 0
+        var breakDurationMinTotal = 0
+        var breakDurationSecTotal = 0
+
         v.breakDuringButton.setOnClickListener {
             var endTime = SystemClock.elapsedRealtime()
             breakChronometer.setBase(endTime)
             breakChronometer.stop()
 
-            var breakDurationMinutes = ((endTime - startTime)/1000)/60
+            var breakDurationHours = (((endTime - startTime)/1000)/60)/60
+            var breakDurationMinutes = (((endTime - startTime)/1000)/60)%60
             var breakDurationSeconds = ((endTime - startTime)/1000)%60
 
-            comm.comPassBreakDuration(breakDurationMinutes.toInt(), breakDurationSeconds.toInt())
+            breakDurationHourTotal += breakDurationHours.toInt()
+            breakDurationMinTotal += breakDurationMinutes.toInt()
+            breakDurationSecTotal += breakDurationSeconds.toInt()
+
+            comm.comPassBreakDuration(breakDurationHourTotal, breakDurationMinTotal, breakDurationSecTotal)
         }
 
         return v
