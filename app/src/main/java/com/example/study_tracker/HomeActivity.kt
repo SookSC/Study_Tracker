@@ -1,5 +1,6 @@
 package com.example.study_tracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
@@ -13,7 +14,7 @@ interface Communicator {
     fun comPassBreakNotes(breakEditText_input: String)
     fun comPassBreakDuration(breakDurationMin: Int, breakDurationSec: Int)
     fun comPassStudyNotes(textInputStudyNotes: String)
-    fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int)
+    fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int)
 }
 
 class HomeActivity : AppCompatActivity(), Communicator {
@@ -54,17 +55,12 @@ class HomeActivity : AppCompatActivity(), Communicator {
         transaction.commit()
     }
 
-    override fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int) {
-        val bundle = Bundle()
-        bundle.putInt("timeStudyMin", timeStudyMin)
-        bundle.putInt("timeStudySec", timeStudySec)
-
-        val transaction = this.supportFragmentManager.beginTransaction()
-        val fragmentEndSession = EndSessionFragment()
-
-        fragmentEndSession.arguments = bundle
-
-        transaction.replace(R.id.fragment_container_top, fragmentEndSession).commit()
+    override fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int) {
+        val intent = Intent(this@HomeActivity, EndStudyActivity::class.java)
+        intent.putExtra("timeStudyMin", timeStudyMin)
+        intent.putExtra("timeStudySec", timeStudySec)
+        intent.putExtra("timeStudyHour", timeStudyHour)
+        startActivity(intent)
     }
 
     override fun comPassBreakDuration(timeBreakMin: Int, timeBreakSec: Int) {
