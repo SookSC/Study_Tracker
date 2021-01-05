@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 interface Communicator {
     fun comPassBreakNotes(breakEditText_input: String)
-    fun comPassBreakDuration(breakDurationHourTotal: Int, breakDurationMinTotal: Int, breakDurationSecTotal: Int)
+    fun comPassBreakDuration(timeBreakHour: Int, timeBreakMin: Int, timeBreakSec: Int)
     fun comPassStudyNotes(textInputStudyNotes: String)
     fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int)
 }
@@ -78,9 +78,11 @@ class HomeActivity : AppCompatActivity(), Communicator {
         startActivity(intent)
     }
 
-    override fun comPassBreakDuration(breakDurationHourTotal: Int, breakDurationMinTotal: Int, breakDurationSecTotal: Int) {
-
+    override fun comPassBreakDuration(timeBreakHour: Int, timeBreakMin: Int, timeBreakSec: Int) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_bottom, breakBeforeFragment).commit()
+        Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
+                + timeBreakHour.toString() + " hour(s) and " + timeBreakMin.toString() + " minute(s) and " + timeBreakSec.toString()
+                + " second(s).", Toast.LENGTH_SHORT).show()
     }
-
 
 }
