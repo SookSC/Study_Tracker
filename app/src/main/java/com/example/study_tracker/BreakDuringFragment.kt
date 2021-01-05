@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_break_during.view.*
 import kotlinx.android.synthetic.main.fragment_break_during.view.breakDuringButton
 
-
 class BreakDuringFragment : Fragment() {
     var inputText: String = ""
 
@@ -18,7 +17,7 @@ class BreakDuringFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_break_during, container, false)
         inputText = arguments?.getString("textInputBreakNotes").toString()
 
-        v.output_textview.text = inputText
+        v.textBreakNotes.text = inputText
 
         val breakChronometer = v.findViewById<Chronometer>(R.id.breakChronometer)
 
