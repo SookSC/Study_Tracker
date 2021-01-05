@@ -10,6 +10,8 @@
         android:id="@+id/textStudyNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
         android:hint="@string/hint_text_enter_notes"
         android:textColor="#000000"
         android:textColorHint="#000000"
@@ -18,14 +20,13 @@
         app:layout_constraintBottom_toTopOf="@+id/studyChronometer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/studyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="50dp"
         android:enabled="true"
         android:text="@string/button_study_stop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +37,7 @@
         android:id="@+id/studyChronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="30dp"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/studyButton"
         app:layout_constraintEnd_toEndOf="parent"
