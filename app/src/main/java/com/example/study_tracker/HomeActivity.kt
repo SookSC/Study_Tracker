@@ -1,5 +1,6 @@
 package com.example.study_tracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.Chronometer
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import kotlinx.android.synthetic.main.activity_home.*
 
 interface Communicator {
     fun comPassBreakNotes(breakEditText_input: String)
@@ -24,7 +26,21 @@ class HomeActivity : AppCompatActivity(), Communicator {
         setContentView(R.layout.activity_home)
 
         val fragmentStudyBefore = StudyBeforeFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top, fragmentStudyBefore).commit()
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top,
+            fragmentStudyBefore).commit()
+
+        // Bottom navigation bar
+        val intent = Intent(this, LogActivity::class.java)
+
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.ic_home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top,
+                    fragmentStudyBefore).commit()
+                R.id.ic_log -> startActivity(intent)
+            }
+            true
+        }
     }
 
     override fun comPassStudyNotes(textInputStudyNotes: String) {
