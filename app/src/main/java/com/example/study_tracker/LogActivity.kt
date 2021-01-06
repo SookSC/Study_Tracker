@@ -123,10 +123,6 @@ class LogActivity : AppCompatActivity() {
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId){
-                // TODO: when returning to home page, if timers were running, return to that
-                //  activity instead of opening a new home activity.
-                //  Or just return to existing home activity in general instead of creating a new
-                //  one.
                 R.id.ic_home -> startActivity(intentHome)
                 //Since already on log page, clicking log icon does nothing
                 R.id.ic_log -> null
