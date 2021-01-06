@@ -44,11 +44,13 @@ class StudyDuringFragment : Fragment() {
                 studyChronometer.setBase(endTime)
                 studyChronometer.stop()
 
-                var elapsedTimeSec = ((endTime - startTime)/1000)%60
-                var elapsedTimeMin = (((endTime - startTime)/1000)/60)%60
-                var elapsedTimeHour = (((endTime - startTime)/1000)/60)/60
+                var timeStudy = endTime - startTime
 
-                communicator.comPassStudyDuration(elapsedTimeMin.toInt(), elapsedTimeSec.toInt(), elapsedTimeHour.toInt())
+                //var elapsedTimeSec = ((endTime - startTime)/1000)%60
+                //var elapsedTimeMin = (((endTime - startTime)/1000)/60)%60
+                //var elapsedTimeHour = (((endTime - startTime)/1000)/60)/60
+
+                communicator.comPassStudyDuration(timeStudy.toInt())
             }
         })
 
