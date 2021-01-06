@@ -24,11 +24,11 @@ class LogActivity : AppCompatActivity() {
 
         // Directory already exists or creation of directory is successful
         if(createSuccess) {
-            val logFile = File("StudyTimerLogData.txt")
+            val logFile = File(SD_main, "StudyTimerLogData.txt")
 
             // Create text file if it does not already exist
             if(!logFile.exists()){
-                createSuccess = logFile.mkdir()
+                createSuccess = logFile.createNewFile()
             }
 
             // Text file already exists or creation of text file is successful
