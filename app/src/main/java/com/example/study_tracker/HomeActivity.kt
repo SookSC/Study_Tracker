@@ -32,6 +32,7 @@ class HomeActivity : AppCompatActivity(), Communicator {
 
         // Bottom navigation bar
         var intentLog = Intent(this, LogActivity::class.java)
+        intentLog.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId){
@@ -71,6 +72,11 @@ class HomeActivity : AppCompatActivity(), Communicator {
     }
 
     override fun comPassStudyDuration(timeStudy: Int) {
+        val breakButton = findViewById<Button>(R.id.breakDuringButton)
+
+        if (breakButton != null) {
+            breakButton.performClick()
+        }
         val intent = Intent(this@HomeActivity, EndStudyActivity::class.java)
         intent.putExtra("timeStudy", timeStudy)
         intent.putExtra("timeBreak", timeBreakTotal)

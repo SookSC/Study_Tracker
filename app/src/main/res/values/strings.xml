@@ -21,8 +21,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="text_study_end">Well done! You studied for:</string>
+    <string name="text_study_end">Time studied:</string>
     <string name="button_restart">Start New Session</string>
-    <string name="text_break_end">You were on break for:</string>
+    <string name="text_break_end">Time on break:</string>
+    <string name="text_time_end">Total session time:</string>
 
 </resources>

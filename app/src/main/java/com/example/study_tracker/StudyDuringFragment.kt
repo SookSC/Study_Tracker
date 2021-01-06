@@ -10,6 +10,7 @@ import android.widget.Chronometer
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_break_before.*
 import kotlinx.android.synthetic.main.fragment_study_during.view.*
 
 private lateinit var viewOfLayout: View
@@ -45,10 +46,6 @@ class StudyDuringFragment : Fragment() {
                 studyChronometer.stop()
 
                 var timeStudy = endTime - startTime
-
-                //var elapsedTimeSec = ((endTime - startTime)/1000)%60
-                //var elapsedTimeMin = (((endTime - startTime)/1000)/60)%60
-                //var elapsedTimeHour = (((endTime - startTime)/1000)/60)/60
 
                 communicator.comPassStudyDuration(timeStudy.toInt())
             }
