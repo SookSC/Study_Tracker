@@ -18,6 +18,10 @@ class EndStudyActivity : AppCompatActivity() {
         var timeStudy = intent.getIntExtra("timeStudy", defaultValue)
         var timeBreak = intent.getIntExtra("timeBreak", defaultValue)
 
+        var timeTotalHour = (((timeStudy)/1000)/60)/60
+        var timeTotalMin = (((timeStudy)/1000)/60)%60
+        var timeTotalSec = ((timeStudy)/1000)%60
+
         timeStudy -= timeBreak
 
         var timeBreakHour = (((timeBreak)/1000)/60)/60
@@ -36,6 +40,9 @@ class EndStudyActivity : AppCompatActivity() {
         val textStudyMin = findViewById<TextView>(R.id.textStudyMin)
         val textStudySec = findViewById<TextView>(R.id.textStudySec)
 
+        val textTotalHour = findViewById<TextView>(R.id.textTotalHour)
+        val textTotalMin = findViewById<TextView>(R.id.textTotalMin)
+        val textTotalSec = findViewById<TextView>(R.id.textTotalSec)
 
         textStudyHour.setText("$timeStudyHour hours")
         textStudyMin.setText("$timeStudyMin minutes")
@@ -44,6 +51,10 @@ class EndStudyActivity : AppCompatActivity() {
         textBreakHour.setText("$timeBreakHour hours")
         textBreakMin.setText("$timeBreakMin minutes")
         textBreakSec.setText("$timeBreakSec seconds")
+
+        textTotalHour.setText("$timeTotalHour hours")
+        textTotalMin.setText("$timeTotalMin minutes")
+        textTotalSec.setText("$timeTotalSec seconds")
 
         restartButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {

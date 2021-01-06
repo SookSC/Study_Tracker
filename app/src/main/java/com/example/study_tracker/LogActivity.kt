@@ -55,6 +55,7 @@ class LogActivity : AppCompatActivity() {
 
         // Bottom navigation bar
         var intentHome = Intent(this, HomeActivity::class.java)
+        intentHome.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId){

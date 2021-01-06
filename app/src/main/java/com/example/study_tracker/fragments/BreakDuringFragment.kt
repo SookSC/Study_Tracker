@@ -36,9 +36,6 @@ class BreakDuringFragment : Fragment() {
             breakChronometer.stop()
 
             var timeBreak = endTime - startTime
-            //var breakDurationHours = (((endTime - startTime)/1000)/60)/60
-            //var breakDurationMinutes = (((endTime - startTime)/1000)/60)%60
-            //var breakDurationSeconds = ((endTime - startTime)/1000)%60
 
             comm.comPassBreakDuration(timeBreak.toInt())
         }
