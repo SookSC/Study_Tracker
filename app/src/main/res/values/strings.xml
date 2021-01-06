@@ -23,5 +23,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="text_study_end">Well done! You studied for:</string>
     <string name="button_restart">Start New Session</string>
+    <string name="text_break_end">You were on break for:</string>
 
 </resources>

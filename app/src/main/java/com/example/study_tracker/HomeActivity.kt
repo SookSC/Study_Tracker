@@ -13,19 +13,19 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 interface Communicator {
     fun comPassBreakNotes(textInputBreakNotes: String)
-    fun comPassBreakDuration(timeBreakHour: Int, timeBreakMin: Int, timeBreakSec: Int)
+    fun comPassBreakDuration(timeBreak: Int)
     fun comPassStudyNotes(textInputStudyNotes: String)
-    fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int)
+    fun comPassStudyDuration(timeStudy: Int)
 }
 
 class HomeActivity : AppCompatActivity(), Communicator {
     val breakBeforeFragment = BreakBeforeFragment()
+    val fragmentStudyBefore = StudyBeforeFragment()
+    var timeBreakTotal = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        val fragmentStudyBefore = StudyBeforeFragment()
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container_top,
             fragmentStudyBefore).commit()
@@ -70,18 +70,20 @@ class HomeActivity : AppCompatActivity(), Communicator {
         transaction.commit()
     }
 
-    override fun comPassStudyDuration(timeStudyMin: Int, timeStudySec: Int, timeStudyHour: Int) {
+    override fun comPassStudyDuration(timeStudy: Int) {
         val intent = Intent(this@HomeActivity, EndStudyActivity::class.java)
-        intent.putExtra("timeStudyMin", timeStudyMin)
-        intent.putExtra("timeStudySec", timeStudySec)
-        intent.putExtra("timeStudyHour", timeStudyHour)
+        intent.putExtra("timeStudy", timeStudy)
+        intent.putExtra("timeBreak", timeBreakTotal)
+
         startActivity(intent)
     }
 
-    override fun comPassBreakDuration(timeBreakHour: Int, timeBreakMin: Int, timeBreakSec: Int) {
+    override fun comPassBreakDuration(timeBreak: Int) {
+        timeBreakTotal += timeBreak
+
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container_bottom, breakBeforeFragment).commit()
         Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
-                + timeBreakHour.toString() + " hour(s) and " + timeBreakMin.toString() + " minute(s) and " + timeBreakSec.toString()
+                + (((timeBreak/1000)/60)/60).toString() + " hour(s) and " + (((timeBreak/1000)/60)%60).toString() + " minute(s) and " + ((timeBreak/1000)%60).toString()
                 + " second(s).", Toast.LENGTH_SHORT).show()
     }
 
