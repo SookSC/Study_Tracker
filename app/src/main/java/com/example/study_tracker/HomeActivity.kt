@@ -1,15 +1,16 @@
 package com.example.study_tracker
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.View
 import android.widget.Button
-import android.widget.Chronometer
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_study_during.*
 
 interface Communicator {
     fun comPassBreakNotes(textInputBreakNotes: String)
@@ -19,6 +20,7 @@ interface Communicator {
 }
 
 class HomeActivity : AppCompatActivity(), Communicator {
+    var isStudyRunning = false
     val breakBeforeFragment = BreakBeforeFragment()
     val fragmentStudyBefore = StudyBeforeFragment()
     var timeBreakTotal = 0
@@ -45,6 +47,7 @@ class HomeActivity : AppCompatActivity(), Communicator {
     }
 
     override fun comPassStudyNotes(textInputStudyNotes: String) {
+        isStudyRunning = true
         val bundle = Bundle()
         bundle.putString("textInputStudyNotes", textInputStudyNotes)
 
@@ -72,6 +75,7 @@ class HomeActivity : AppCompatActivity(), Communicator {
     }
 
     override fun comPassStudyDuration(timeStudy: Int) {
+        isStudyRunning = false
         val breakButton = findViewById<Button>(R.id.breakDuringButton)
 
         if (breakButton != null) {
@@ -91,6 +95,32 @@ class HomeActivity : AppCompatActivity(), Communicator {
         Toast.makeText(this@HomeActivity,"Break session recorded! The duration was "
                 + (((timeBreak/1000)/60)/60).toString() + " hour(s) and " + (((timeBreak/1000)/60)%60).toString() + " minute(s) and " + ((timeBreak/1000)%60).toString()
                 + " second(s).", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStop() {
+        super.onStop();
+        val startTime = SystemClock.elapsedRealtime() - studyChronometer.base
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.apply {
+            putLong("startTime", startTime)
+            putBoolean("isStudyRunning", isStudyRunning)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val startTime = sharedPreferences.getLong("startTime", 0)
+        val isRunning = sharedPreferences.getBoolean("isStudyRunning", false)
+
+        var currTime: Long = 0
+        if (isRunning) {
+            currTime = startTime + System.currentTimeMillis()
+            studyChronometer.base = currTime
+            studyChronometer.start()
+        }
+
     }
 
 }
