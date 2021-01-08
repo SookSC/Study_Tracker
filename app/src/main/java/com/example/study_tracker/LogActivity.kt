@@ -1,15 +1,19 @@
 package com.example.study_tracker
 
+import android.content.BroadcastReceiver
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_break_during.view.*
+import kotlinx.android.synthetic.main.fragment_study_during.view.*
 import java.io.*
 
 class LogActivity : AppCompatActivity() {
+
+    var textInputStudyNotes: String? = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
@@ -18,28 +22,38 @@ class LogActivity : AppCompatActivity() {
 
         var path = getExternalFilesDir(null)
 
-        var fileOut = File(path, filename)
+        var logFile = File(path, filename)
 
-        var success = true
-        if(!fileOut.exists()){
-            success = fileOut.createNewFile()
+        var createSuccess = true
+        if(!logFile.exists()){
+            createSuccess = logFile.createNewFile()
         }
 
-        if(success){
+        // If text file exists or is successfully created
+        if(createSuccess){
             Toast.makeText(this@LogActivity, "File successfully exists!",
             Toast.LENGTH_SHORT).show()
 
-            fileOut.appendText("This is what I'm printing")
-            var inputStream: InputStream = fileOut.inputStream()
+            // Receive study note from HomeActivity
+            var bundle = getIntent().getExtras();
+            textInputStudyNotes = bundle?.getString("textInputStudyNotes")
+
+            // Print study note
+            logFile.appendText("\n")
+            logFile.appendText("Start test:")
+            logFile.appendText("\n")
+            logFile.appendText(textInputStudyNotes.toString())
+
+            var inputStream: InputStream = logFile.inputStream()
             var allText = inputStream.bufferedReader().use(BufferedReader::readText)
 
             val displayText = findViewById<TextView>(R.id.readLogText)
-
             displayText.setText(allText)
 
         }
+        // If text file creation is unsuccessful (no text file exists)
         else{
-            Toast.makeText(this@LogActivity, "File creation UNSUCCESSFUL",
+            Toast.makeText(this@LogActivity, "Log text file creation UNSUCCESSFUL",
                     Toast.LENGTH_SHORT).show()
         }
 
