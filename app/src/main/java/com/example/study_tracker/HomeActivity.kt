@@ -52,6 +52,15 @@ class HomeActivity : AppCompatActivity(), Communicator {
         val fragmentStudyDuring = StudyDuringFragment()
         fragmentStudyDuring.arguments = bundle
 
+        // Send study note to LogActivity
+        val intent = Intent(this@HomeActivity, LogActivity::class.java)
+        intent.putExtra("textInputStudyNotes", textInputStudyNotes)
+        startActivity(intent)
+        // Although LogActivity is started by the prev line, keep HomeActivity open on the screen
+        var intentHome = Intent(this, HomeActivity::class.java)
+        intentHome.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+        startActivity(intentHome)
+
         transaction.replace(R.id.fragment_container_top, fragmentStudyDuring)
         transaction.replace(R.id.fragment_container_bottom, breakBeforeFragment)
         transaction.commit()
